@@ -93,6 +93,14 @@ function query()
     		var theTrain = jsonData[i];
 		var  datalist = theTrain.split('|') ;
 
+                var trainNum = datalist[3]; 
+		var departureTime = datalist[8];
+		var arrivalTime = datalist[9];
+		var durationTime = datalist[10];
+                var date = datalist[13]; 
+		var advancedSoftBerth = 0; 
+		var softBerth = 0;
+                var businessClass = 0; 		     
                 var firstClass = 0;  
                 var secondClass = 0;  
                 var hardSeat = 0;  
@@ -111,13 +119,14 @@ function query()
 
 		} else if(-1 != trainNum.indexOf('D') )
 		{
-	       		tickets = jsonMap[trainNum] = datalist[23]; 
+	       		tickets =  datalist[23]; 
 
             		console.log(trainNum, tickets  );
 
 		}else{
-	       		tickets = jsonMap[trainNum] = datalist[30]; 
-
+	       		tickets = datalist[30]; 
+			advancedSoftBerth = datalist[21]; 
+			standingTicket = datalist[26]; 
             		console.log(trainNum, tickets  );
 		}     
 
