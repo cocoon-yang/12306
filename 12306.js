@@ -18,7 +18,7 @@ var config = {
     purpose_codes: 'ADULT', 
 }
 
-var ca = fs.readFileSync('./srca.pem');
+var ca = fs.readFileSync('./cert/srca.cer.pem');
 
  	   
 
