@@ -1,4 +1,4 @@
-﻿//  参考hongrunhui的node_12306：
+//  参考hongrunhui的node_12306：
 //  https://github.com/hongrunhui/node_12306
 //  编写的一个使用node.js查询12306余票的代码
 
@@ -122,9 +122,9 @@ console.log(  titleList.join('\t') );
                 var standing = datalist[26]; 
 
                 var advancedClass = datalist[25]; 
-                var businessClass = datalist[30]; 	 		     
-                var firstClass = datalist[31]; 
-                var secondClass = datalist[32]; 
+                var businessClass = datalist[32]; 	 		     
+                var firstClass = datalist[30]; 
+                var secondClass = datalist[31]; 
        
 
 		if(-1 != trainNum.indexOf('G') )
@@ -141,7 +141,7 @@ console.log(  titleList.join('\t') );
 		tickets.push( departureTime );
 		tickets.push( arrivalTime );
 		tickets.push( durationTime );
- 		tickets.push( advancedClass );
+ 		//tickets.push( advancedClass );
 		tickets.push( businessClass );
 		tickets.push( firstClass );
 		tickets.push( secondClass );
