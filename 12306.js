@@ -7,7 +7,19 @@ var fs = require('fs');
 var ca = fs.readFileSync('./cert/srca.cer.pem');
 
 var UA = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
-
+var titleList = new Array();
+titleList.push( '车次');
+titleList.push( '开车');
+titleList.push( '到达');
+titleList.push( '历时');
+titleList.push( '商务');
+titleList.push( '一等');
+titleList.push( '二等');
+titleList.push( '软卧');
+titleList.push( '硬卧');
+titleList.push( '软座');
+titleList.push( '硬座');
+titleList.push( '站票');
  
 
 var config = {
@@ -32,7 +44,7 @@ function query()
             hostname: 'kyfw.12306.cn',//12306
             path:  queryPath,
            // rejectUnauthorized: false  //  
-            ca:[ca]//证书
+            ca:[ca]// 
     };
 
 
@@ -89,54 +101,62 @@ function query()
 	    		return;
 	    	}
 
+console.log(  titleList.join('\t') );		    
     	     for(var i=0;i<jsonData.length;i++){
     		var theTrain = jsonData[i];
 		var  datalist = theTrain.split('|') ;
-
+		var tickets = new Array();
+		     
                 var trainNum = datalist[3]; 
 		var departureTime = datalist[8];
 		var arrivalTime = datalist[9];
 		var durationTime = datalist[10];
                 var date = datalist[13]; 
-		var advancedSoftBerth = 0; 
-		var softBerth = 0;
-                var businessClass = 0; 		     
-                var firstClass = 0;  
-                var secondClass = 0;  
-                var hardSeat = 0;  
-                var softSeat = 0;   
-                var trainNum = datalist[3]; 
-                var date = datalist[13]; 
+ 
+		var advancedSoftBerth = datalist[21]; 
+		var softBerth = datalist[23];
+		var hardBerth = datalist[28];  
+
+                var softSeat = 0;     
+                var hardSeat = datalist[29]; 
+                var standing = datalist[26]; 
+
+                var advancedClass = datalist[25]; 
+                var businessClass = datalist[30]; 	 		     
+                var firstClass = datalist[31]; 
+                var secondClass = datalist[32]; 
        
-		var tickets;
 
 		if(-1 != trainNum.indexOf('G') )
 		{
-			firstClass = datalist[30];  
-			tickets = datalist[30];  
-
-            		console.log(trainNum, firstClass   );
-
 		} else if(-1 != trainNum.indexOf('D') )
 		{
-	       		tickets =  datalist[23]; 
-
-            		console.log(trainNum, tickets  );
-
+		}else if(-1 != trainNum.indexOf('T') )
+		{
+			advancedSoftBerth = datalist[21]; 			
 		}else{
-	       		tickets = datalist[30]; 
-			advancedSoftBerth = datalist[21]; 
-			standingTicket = datalist[26]; 
-            		console.log(trainNum, tickets  );
-		}     
 
-	       	jsonMap[trainNum] = tickets; 
-		
+		}   
+		tickets.push( trainNum );
+		tickets.push( departureTime );
+		tickets.push( arrivalTime );
+		tickets.push( durationTime );
+ 		tickets.push( advancedClass );
+		tickets.push( businessClass );
+		tickets.push( firstClass );
+		tickets.push( secondClass );
+		tickets.push( softBerth );
+		tickets.push( hardBerth );
+		tickets.push( hardSeat );
+		tickets.push( softSeat );
+		tickets.push( standing);
+console.log(tickets.join('\t' ))
+		     
+	       	jsonMap[trainNum] = tickets; 				     
     	    }
 
             //console.log('jsonMap ', jsonMap );
-            console.log('D321 ', jsonMap['D321'], ' tickets');
-
+            //console.log('D321 ', jsonMap['D321'], ' tickets');
     	    }catch(err){
     		console.log('JSON data error',err);
     		return;
@@ -159,9 +179,6 @@ function query()
 }
 
 
-
-
-
 function log()
 {
     var theLogPath = '/otn/leftTicket/log?';
@@ -169,22 +186,20 @@ function log()
     theLogPath += '&leftTicketDTO.from_station=' +  config.from_station; 
     theLogPath += '&leftTicketDTO.end_station=' +  config.end_station; 
     theLogPath += '&purpose_codes=' +  config.purpose_codes;
- 
-    //console.log( theLogPath )
 
     var logOptions = { 
         method: 'GET',
         hostname: 'kyfw.12306.cn',//12306
         path:  theLogPath,
-        // rejectUnauthorized: false  // 忽略安全警告
-        ca: [ca]//证书
+        // rejectUnauthorized: false  //  
+        ca: [ca] 
     };
 
     var req = https.get( logOptions, function(res){ 
  
         var data = '';
         res.on('data',function(buff){
-            data += buff;//查询结果（JSON格式）
+            data += buff; 
         }); 
 
         res.on('end',function(){
