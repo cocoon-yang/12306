@@ -23,7 +23,7 @@ titleList.push( '站票');
  
 
 var config = {
-    time:'2017-05-03',   // date
+    time:'2017-05-08',   // date
     from_station:'BJP',  // from station 
     end_station:'SHH',   // target station
     train_num:'D321',    // train number
