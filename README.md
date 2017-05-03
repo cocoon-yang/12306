@@ -3,3 +3,9 @@
 
 
 参考hongrunhui的node_12306(https://github.com/hongrunhui/node_12306) 编写的一个使用node.js查询12306余票的代码
+
+## 使用 
+
+<pre>  
+node 12306.js
+</pre> 
