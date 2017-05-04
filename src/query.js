@@ -23,18 +23,27 @@ var QUERY = function( )
 
 };
 
- 
-
-
-
-
-
+QUERY.prototype.fixedlengthString = function( theStr, length )
+{
+    var len = String(theStr).length;
+    if( len < length )
+    {
+        var strlist = new Array();
+        strlist.push( theStr );
+        for( var i = len; i < length; i++ )
+        {
+             strlist.push( ' ' );
+        }
+        return strlist.join('');
+    } else {
+        return theStr.substr(0,length);
+    }
+}
 
 QUERY.prototype.query = function( config )
 {
       var self = this;
 
- 
     var queryPath = '/otn/leftTicket/query?';
         queryPath +=  'leftTicketDTO.train_date='   +  config.time;
         queryPath += '&leftTicketDTO.from_station=' +  config.from_station; 
@@ -103,7 +112,7 @@ QUERY.prototype.query = function( config )
 	    		return;
 	    	}
 
-console.log(  self._titleList.join('\t') );
+console.log(  self._titleList.join('  ') );
 		    
     	     for(var i=0;i<jsonData.length;i++){
     		var theTrain = jsonData[i];
@@ -140,24 +149,22 @@ console.log(  self._titleList.join('\t') );
 		}else{
 
 		}   
-		tickets.push( trainNum );
-		tickets.push( departureTime );
-		tickets.push( arrivalTime );
-		tickets.push( durationTime );
-
+		tickets.push( self.fixedlengthString( trainNum, 6 ) );
+		tickets.push( self.fixedlengthString( departureTime, 6 ) );
+		tickets.push( self.fixedlengthString( arrivalTime, 6 ) );
+		tickets.push( self.fixedlengthString( durationTime, 6 ) );
 
  		//tickets.push( advancedClass );
-		tickets.push( businessClass );
-		tickets.push( firstClass );
-		tickets.push( secondClass );
-		tickets.push( softBerth );
-		tickets.push( hardBerth );
-		tickets.push( hardSeat );
-		tickets.push( softSeat );
-		tickets.push( standing);
+		tickets.push( self.fixedlengthString( businessClass, 6 ) );
+		tickets.push( self.fixedlengthString( firstClass, 6 ) );
+		tickets.push( self.fixedlengthString( secondClass, 6 ) );
+		tickets.push( self.fixedlengthString( softBerth, 6 ) );
+		tickets.push( self.fixedlengthString( hardBerth, 6 ) );
+		tickets.push( self.fixedlengthString( hardSeat, 6 ) );
+		tickets.push( self.fixedlengthString( softSeat, 6 ) );
+		tickets.push( self.fixedlengthString( standing, 6 ) );
 
- console.log(tickets.join('\t' ))
- 
+ console.log(tickets.join('' )); 
     	    }
 
     	    }catch(err){
