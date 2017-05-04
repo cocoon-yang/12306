@@ -92,10 +92,8 @@ function toStation()
 	{
 	    console.log(err);
 	}
-
         rl.prompt();
     });
-    //rl.prompt();
 }
 
 
@@ -104,7 +102,6 @@ rl.prompt();
 rl.on('line', function(line){
   switch(line.trim()) {
     case 'quit':
-      // console.log('world!');
 	rl.close();
       break;
     case 'from':
@@ -133,7 +130,6 @@ rl.on('line', function(line){
       }catch( err )
       {
       	console.log( err );
-      	//rl.prompt();
       	break;
       }
 	theQuery.log( config );
@@ -143,6 +139,6 @@ rl.on('line', function(line){
 });
 
 rl.on('close', function()  {
-  console.log('Have a great day!');
+  console.log('再见');
   process.exit(0);
 });
