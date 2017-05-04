@@ -7,5 +7,5 @@
 ## 使用 
 
 <pre>  
-node 12306.js
+node main.js
 </pre> 
