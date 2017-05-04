@@ -10,11 +10,25 @@ const rl = readline.createInterface({
   prompt: 'OHAI> '
 });
 
-
 //
 var stations  = new STATIONDATA() ;
 var theQuery = new Ticketsquery();
  
+function load( )
+{
+    rl.question('请输入车票查询配置文件:', function(answer)  {
+    var thePath = answer;  
+       try{
+	    var theConfig  = fs.readFileSync( thePath );
+	    theQuery.log( JSON.parse( theConfig ) );
+       }
+	catch(err)
+	{
+	    console.log(err);
+	}
+        rl.prompt();
+    });
+}
 
 function setTrain()
 {
@@ -105,23 +119,24 @@ rl.on('line', function(line){
     case 'train':
       setTrain();
       break;
+    case 'load':
+      load();
+      break;		  
     default:
-      //console.log(`Say what? I might have heard '${line.trim()}'`);
-
       var config;
       try{
-				if( ! stations.check() )
-      	{
+ 	    if( ! stations.check() )
+      	    {
       		break;
-      	}
-      	config = stations.getTicketConfig();
+      	    }
+      	    config = stations.getTicketConfig();
       }catch( err )
       {
       	console.log( err );
       	//rl.prompt();
       	break;
       }
-	    theQuery.log( config );
+	theQuery.log( config );
       break;
   }
   rl.prompt();
@@ -131,9 +146,3 @@ rl.on('close', function()  {
   console.log('Have a great day!');
   process.exit(0);
 });
-
-
- 
-
-
-
