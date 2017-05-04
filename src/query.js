@@ -103,21 +103,13 @@ QUERY.prototype.query = function( config )
 	    		return;
 	    	}
 
-
-
-
-
-//console.log('No.\t', 'busi\t','1st\t','2nd\t','soft\t','hard\t','stand\t' );
-
 console.log(  self._titleList.join('\t') );
-
+		    
     	     for(var i=0;i<jsonData.length;i++){
-
     		var theTrain = jsonData[i];
 		var  datalist = theTrain.split('|') ;
 		var tickets = new Array();
-
-
+		     
                 var trainNum = datalist[3]; 
 		var departureTime = datalist[8];
 		var arrivalTime = datalist[9];
@@ -128,58 +120,33 @@ console.log(  self._titleList.join('\t') );
 		var softBerth = datalist[23];
 		var hardBerth = datalist[28];  
 
-
- 
                 var softSeat = 0;     
                 var hardSeat = datalist[29]; 
                 var standing = datalist[26]; 
 
                 var advancedClass = datalist[25]; 
-                var businessClass = datalist[30]; 	 		     
-                var firstClass = datalist[31]; 
-                var secondClass = datalist[32]; 
-
+                var businessClass = datalist[32]; 	 		     
+                var firstClass = datalist[30]; 
+                var secondClass = datalist[31]; 
+       
 
 		if(-1 != trainNum.indexOf('G') )
 		{
-			businessClass = datalist[30]; 		     
-			firstClass = datalist[31];  
-			secondClass = datalist[32];  
-
-            		//console.log(trainNum, firstClass   );
-
 		} else if(-1 != trainNum.indexOf('D') )
 		{
- 
-                var standing = datalist[26]; 
-            		//console.log(trainNum, tickets  );
-
 		}else if(-1 != trainNum.indexOf('T') )
 		{
-			advancedSoftBerth = datalist[21]; 
- 			softBerth = datalist[23]; 
-			hardBerth = datalist[28];
-			standing = datalist[26]; 
-			hardSeat = datalist[28]; 
-			softSeat = datalist[29]; 
-            		//console.log(trainNum, tickets  );
-
+			advancedSoftBerth = datalist[21]; 			
 		}else{
 
-			softBerth = datalist[23]; 
-			standing = datalist[26];
-			hardSeat = datalist[29]; 
-			softSeat = datalist[23]; 
-
-            		//console.log(trainNum, tickets  );
-		}     
-
-
+		}   
 		tickets.push( trainNum );
 		tickets.push( departureTime );
 		tickets.push( arrivalTime );
 		tickets.push( durationTime );
- 		tickets.push( advancedClass );
+
+
+ 		//tickets.push( advancedClass );
 		tickets.push( businessClass );
 		tickets.push( firstClass );
 		tickets.push( secondClass );
@@ -189,23 +156,9 @@ console.log(  self._titleList.join('\t') );
 		tickets.push( softSeat );
 		tickets.push( standing);
 
-
-
-		tickets.push( );
-		tickets.push( );
-		tickets.push( );
-
-	       	jsonMap[trainNum] = tickets; 
-		
-
-
-//console('No.\t', 'busi\t','1st\t','2nd\t' )
  console.log(tickets.join('\t' ))
  
     	    }
-
-            //console.log('jsonMap ', jsonMap );
-            // console.log('D321 ', jsonMap['D321'], ' tickets');
 
     	    }catch(err){
     		console.log('JSON data error',err);
