@@ -25,12 +25,20 @@ var QUERY = function( )
 
 QUERY.prototype.fixedlengthString = function( theStr, length )
 {
-    var len = String(theStr).length;
-    if( len < length )
+    var strlen = 0;
+    for(var i = 0;i < theStr.length; i++)
+　　{
+　　　　if(theStr.charCodeAt(i) > 255)  
+　　　　　　strlen += 2;
+　　　　else  
+　　　　　　strlen++;
+    }
+
+    if( strlen < length )
     {
         var strlist = new Array();
         strlist.push( theStr );
-        for( var i = len; i < length; i++ )
+        for( var i = strlen; i < length; i++ )
         {
              strlist.push( ' ' );
         }
