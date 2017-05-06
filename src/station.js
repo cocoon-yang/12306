@@ -133,7 +133,7 @@ STATION.prototype.check = function( )
 		throw new Error('请先设定发车时间 >date ');
 		return false; 
 	} 
-
+/*******
 	var train = self.config.train_num;
 	len = train.length;
 	if( 0 == len ) 
@@ -141,6 +141,7 @@ STATION.prototype.check = function( )
 		throw new Error('请先设定车次 >train ');
 		return false; 
 	} 
+***********/	
 	return true; 
 }
 
