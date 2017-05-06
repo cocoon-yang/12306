@@ -168,8 +168,8 @@ console.log(  self._titleList.join('  ') );
 		tickets.push( self.fixedlengthString( secondClass, 6 ) );
 		tickets.push( self.fixedlengthString( softBerth, 6 ) );
 		tickets.push( self.fixedlengthString( hardBerth, 6 ) );
-		tickets.push( self.fixedlengthString( hardSeat, 6 ) );
 		tickets.push( self.fixedlengthString( softSeat, 6 ) );
+		tickets.push( self.fixedlengthString( hardSeat, 6 ) );
 		tickets.push( self.fixedlengthString( standing, 6 ) );
 
  console.log(tickets.join('' )); 
