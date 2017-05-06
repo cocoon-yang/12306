@@ -13,7 +13,27 @@ const rl = readline.createInterface({
 //
 var stations  = new STATIONDATA() ;
 var theQuery = new Ticketsquery();
- 
+
+//
+// save configuration  
+function save()
+{
+      var config;
+      try{
+ 	    if( ! stations.check() )
+      	    {
+		console.log('Please input ticket configuration')
+      		return;
+      	    }
+      	    config = stations.getTicketConfig();
+      }catch( err )
+      {
+      	  console.log( err );
+      }
+
+    fs.writeFileSync( './config.json', JSON.stringify( config ) );  
+}
+
 function load( )
 {
     rl.question('请输入配置文件(使用默认配置./config.json,直接敲击回车):', function(answer)  {
@@ -122,7 +142,10 @@ rl.on('line', function(line){
       break;
     case 'load':
       load();
-      break;		  
+      break;	
+    case 'save':
+      save();
+      break;			  
     default:
       var config;
       try{
