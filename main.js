@@ -16,7 +16,7 @@ var theQuery = new Ticketsquery();
  
 function load( )
 {
-    rl.question('请输入车票查询配置文件(如使用默认配置文件./config.json,请直接敲击回车):', function(answer)  {
+    rl.question('请输入配置文件(使用默认配置./config.json,直接敲击回车):', function(answer)  {
         var thePath = './config.json';
         if( 0 != String(answer).length )
         { 
