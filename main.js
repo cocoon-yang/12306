@@ -16,12 +16,16 @@ var theQuery = new Ticketsquery();
  
 function load( )
 {
-    rl.question('请输入车票查询配置文件:', function(answer)  {
-    var thePath = answer;  
-       try{
+    rl.question('请输入车票查询配置文件(如使用默认配置文件./config.json,请直接敲击回车):', function(answer)  {
+        var thePath = './config.json';
+        if( 0 != String(answer).length )
+        { 
+            thePath = answer;  
+        }
+        try{
 	    var theConfig  = fs.readFileSync( thePath );
 	    theQuery.log( JSON.parse( theConfig ) );
-       }
+        }
 	catch(err)
 	{
 	    console.log(err);
