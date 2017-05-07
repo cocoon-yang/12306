@@ -5,17 +5,6 @@ var STATION = function( )
 {  
 	this.stationName = JSON.parse( stations ).stationName // .status;
 	this.stationInfo  = JSON.parse( stations ).stationInfo ;
- 
-
-	/******************  
-	this.config = {
-	    time:'2017-05-08',   // date
-	    from_station:'BJP',  // from station 
-	    end_station:'SHH',   // target station
-	    train_num:'D321',    // train number
-	    purpose_codes: 'ADULT', 
-	}
-	*******/
 
 	this.config = {
 	    time:'',   // date
@@ -24,11 +13,7 @@ var STATION = function( )
 	    train_num:'',    // train number
 	    purpose_codes: 'ADULT', 
 	}
-
 };  
-
- 
- 
 
 
 STATION.prototype.setTrainNumber = function( theTrain )
@@ -53,9 +38,7 @@ STATION.prototype.getStationInfo = function( theName )
 STATION.prototype.checkStation = function( theName )
 {
 	var self = this;
-        // console.log('checking station: ', theName );
-
-	var len = self.stationName.length;
+	var len = String(self.stationName).length;
 
 	for( var i = 0; i < len; i++  )
 	{
@@ -75,6 +58,7 @@ STATION.prototype.checkStation = function( theName )
 
 STATION.prototype.setDate = function( theDate )
 {
+	// TODO  checking theDate
 	var self = this;
 	self.config.time = theDate;
 }
@@ -88,7 +72,7 @@ STATION.prototype.setFromStation = function( stationName )
 		throw new Error('Please input from station with promotion >from ');
 		return;
       }
-	var stationInfo = self.getStationInfo( stationName )
+     var stationInfo = self.getStationInfo( stationName )
      self.config.from_station = stationInfo.code;
 }
 
@@ -110,7 +94,7 @@ STATION.prototype.check = function( )
 	var self = this;
 	var station = self.config.from_station;
 
-	var len = station.length;
+	var len = String(station).length;
  
 	if( 0 == len ) 
 	{
@@ -119,7 +103,7 @@ STATION.prototype.check = function( )
 	} 
 
 	station = self.config.end_station;
-	len = station.length;
+	len = String(station).length;
 	if( 0 == len ) 
 	{
 		throw new Error('请先设定到达站 >to ');
@@ -127,7 +111,7 @@ STATION.prototype.check = function( )
 	} 
 
 	var date = self.config.time;
-	len = date.length;
+	len = String(station).length;
 	if( 0 == len ) 
 	{
 		throw new Error('请先设定发车时间 >date ');
@@ -148,11 +132,8 @@ STATION.prototype.check = function( )
 STATION.prototype.getTicketConfig = function( )
 {
 	var self = this;
-
-//
 //  DEBUG  
 console.log( self.config );
-//
 //
 
 	try{
@@ -163,9 +144,5 @@ console.log( self.config );
 	}
 	return self.config;
 }
-
-
-
-
 
 module.exports = STATION;
