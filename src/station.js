@@ -44,22 +44,6 @@ STATION.prototype.loadCofigFile = function( theCofigFilePath )
 	self.config = JSON.parse( theConfig );
 }
 
- 
-STATION.prototype.readCofigFile = function( theCofigFilePath )
-{ 
-	var self = this;
-	var exist = fs.existsSync( theCofigFilePath )
-
-	  if ( !exist ) { 
-	      console.error('Default ', theCofigFilePath, 'does not exist');
-	      return self.getTicketConfig();
-	  }
-
-	var theConfig  = fs.readFileSync( theCofigFilePath );
-	// self.config.log( JSON.parse( theConfig ) );
-	return JSON.parse( theConfig ) ;
-}
-
 
 STATION.prototype.setTrainNumber = function( theTrain )
 {
