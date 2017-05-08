@@ -13,6 +13,7 @@ const rl = readline.createInterface({
 //
 var stations  = new STATIONDATA() ;
 var theQuery = new Ticketsquery();
+ 
 
 //
 // save configuration  
@@ -30,9 +31,13 @@ function save()
       {
       	  console.log( err );
       }
-
+    console.log('save configuration to ./config.json' );
     fs.writeFileSync( './config.json', JSON.stringify( config ) );  
 }
+
+
+
+
 
 function load( )
 {
@@ -104,13 +109,13 @@ function fromStation()
 
 function toStation()
 { 
-    rl.question('请输入到达站(全拼，例如beijingxi):', function(answer)  {
+    rl.question('请输入到达站(全拼，例如shanghai):', function(answer)  {
  	 //  
     console.log('到达站:', answer  );
     var theToStation = answer; 
 
        try{
-	stations.setToStation( theToStation );
+	   stations.setToStation( theToStation );
        }
 	catch(err)
 	{
@@ -121,10 +126,35 @@ function toStation()
 }
 
 
+function query()
+{ 
+      var config;
+      try{
+ 	    if( ! stations.check() )
+      	    {
+		//console.log('使用');
+		//var theConfig  = fs.readFileSync( './config.json' );
+
+		//theQuery.log( JSON.parse( theConfig ) );
+
+      		return;
+      	    }
+      	    config = stations.getTicketConfig();
+      }catch( err )
+      {
+      	console.log( err );
+      }
+	theQuery.log( config );
+}
+
+
 rl.prompt();
 
-rl.on('line', function(line){
-  switch(line.trim()) {
+rl.on('line', function(line){ 
+
+  stations.loadCofigFile( './config.json' )
+
+  switch((line.trim()).toLowerCase()) {
     case 'quit':
 	rl.close();
       break;
@@ -145,21 +175,17 @@ rl.on('line', function(line){
       break;	
     case 'save':
       save();
-      break;			  
+      break;	  
     default:
       var config;
       try{
- 	    if( ! stations.check() )
-      	    {
-      		break;
-      	    }
-      	    config = stations.getTicketConfig();
+	    config = stations.getTicketConfig( );
       }catch( err )
       {
       	console.log( err );
       	break;
       }
-	theQuery.log( config );
+      theQuery.log( config );
       break;
   }
   rl.prompt();
