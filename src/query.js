@@ -89,7 +89,7 @@ QUERY.prototype.query = function( config )
 
     var req = https.get( options, function(res){ 
         res.setEncoding('utf8');
-        console.log("Got response: " + res.statusCode);
+        // console.log("Got response: " + res.statusCode);
 
         var theData = '';
         res.on('data',function( chunk ){
@@ -106,7 +106,7 @@ QUERY.prototype.query = function( config )
                  var status = JSON.parse(theData).status;
                  if( status )
                  {
-                      console.log('Query status: ',  status );               
+                      // console.log('Query status: ',  status );               
                   }else {
                       console.log('Query Failed ' );
                       return;
@@ -201,7 +201,7 @@ console.log(  self._titleList.join('  ') );
     });
 
     req.end();
-    console.log(req.data);
+    console.log( );
 }
 
 
@@ -242,7 +242,7 @@ QUERY.prototype.log = function( config )
                 var status = JSON.parse(data).status;
                 if( status )
                 {
-                     console.log('Query Log PASS' );
+                     //console.log('Query Log PASS' );
                      self.query( config );
                  }else {
                      console.log('Query Log Failed ' );

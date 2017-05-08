@@ -45,6 +45,29 @@ STATION.prototype.loadCofigFile = function( theCofigFilePath )
 }
 
 
+STATION.prototype.getStationNameByCode = function( theCode )
+{
+	var self = this;
+        // console.log('checking station: ', theCode );
+
+	var len = self.stationName.length;
+
+	for( var i = 0; i < len; i++  )
+	{
+		var name = self.stationName[i];
+		var code = self.stationInfo[name].code
+		var targetStationCodeLen = theCode.length;
+		var checkingStationCodeLen = code.length;
+		if( code.match( theCode ) && (targetStationCodeLen == checkingStationCodeLen ))
+		{
+               		//console.log('find the station: \n', self.stationInfo[name].name);
+			return self.stationInfo[name].name;
+		}
+	}
+        console.log('can not find the station.');
+	return String();
+}
+
 STATION.prototype.setTrainNumber = function( theTrain )
 {
 	var self = this;
@@ -165,7 +188,19 @@ STATION.prototype.getTicketConfig = function( )
 
 //
 //  DEBUG  
-console.log( self.config );
+// console.log( self.config );
+
+
+
+
+
+var from  = self.getStationNameByCode( self.config.from_station );
+var to  = self.getStationNameByCode( self.config.end_station );
+
+//
+console.log( '    ', from , ' => ', to );
+console.log( '  ', self.config.time, '各车次余票' ); 
+
 //
 //
 
