@@ -5,6 +5,17 @@ var STATION = function( )
 {  
 	this.stationName = JSON.parse( stations ).stationName // .status;
 	this.stationInfo  = JSON.parse( stations ).stationInfo ;
+ 
+
+	/******************  
+	this.config = {
+	    time:'2017-05-08',   // date
+	    from_station:'BJP',  // from station 
+	    end_station:'SHH',   // target station
+	    train_num:'D321',    // train number
+	    purpose_codes: 'ADULT', 
+	}
+	*******/
 
 	this.config = {
 	    time:'',   // date
@@ -13,7 +24,41 @@ var STATION = function( )
 	    train_num:'',    // train number
 	    purpose_codes: 'ADULT', 
 	}
+
 };  
+
+
+STATION.prototype.loadCofigFile = function( theCofigFilePath )
+{ 
+	var self = this;
+	var exist = fs.existsSync( theCofigFilePath )
+
+	  if ( !exist ) { 
+	      console.error('Default ', theCofigFilePath, 'does not exist, please setting ticket configuration');
+	      return ;
+	  }
+
+	var theConfig  = fs.readFileSync( theCofigFilePath );
+	//self.config.log( JSON.parse( theConfig ) );
+	//return JSON.parse( theConfig ) ;
+	self.config = JSON.parse( theConfig );
+}
+
+ 
+STATION.prototype.readCofigFile = function( theCofigFilePath )
+{ 
+	var self = this;
+	var exist = fs.existsSync( theCofigFilePath )
+
+	  if ( !exist ) { 
+	      console.error('Default ', theCofigFilePath, 'does not exist');
+	      return self.getTicketConfig();
+	  }
+
+	var theConfig  = fs.readFileSync( theCofigFilePath );
+	// self.config.log( JSON.parse( theConfig ) );
+	return JSON.parse( theConfig ) ;
+}
 
 
 STATION.prototype.setTrainNumber = function( theTrain )
@@ -38,7 +83,9 @@ STATION.prototype.getStationInfo = function( theName )
 STATION.prototype.checkStation = function( theName )
 {
 	var self = this;
-	var len = String(self.stationName).length;
+        // console.log('checking station: ', theName );
+
+	var len = self.stationName.length;
 
 	for( var i = 0; i < len; i++  )
 	{
@@ -58,7 +105,6 @@ STATION.prototype.checkStation = function( theName )
 
 STATION.prototype.setDate = function( theDate )
 {
-	// TODO  checking theDate
 	var self = this;
 	self.config.time = theDate;
 }
@@ -72,7 +118,7 @@ STATION.prototype.setFromStation = function( stationName )
 		throw new Error('Please input from station with promotion >from ');
 		return;
       }
-     var stationInfo = self.getStationInfo( stationName )
+	var stationInfo = self.getStationInfo( stationName )
      self.config.from_station = stationInfo.code;
 }
 
@@ -94,7 +140,7 @@ STATION.prototype.check = function( )
 	var self = this;
 	var station = self.config.from_station;
 
-	var len = String(station).length;
+	var len = station.length;
  
 	if( 0 == len ) 
 	{
@@ -103,7 +149,7 @@ STATION.prototype.check = function( )
 	} 
 
 	station = self.config.end_station;
-	len = String(station).length;
+	len = station.length;
 	if( 0 == len ) 
 	{
 		throw new Error('请先设定到达站 >to ');
@@ -111,13 +157,13 @@ STATION.prototype.check = function( )
 	} 
 
 	var date = self.config.time;
-	len = String(station).length;
+	len = date.length;
 	if( 0 == len ) 
 	{
 		throw new Error('请先设定发车时间 >date ');
 		return false; 
 	} 
-/*******
+/*********
 	var train = self.config.train_num;
 	len = train.length;
 	if( 0 == len ) 
@@ -125,15 +171,18 @@ STATION.prototype.check = function( )
 		throw new Error('请先设定车次 >train ');
 		return false; 
 	} 
-***********/	
+**********/
 	return true; 
 }
 
 STATION.prototype.getTicketConfig = function( )
 {
 	var self = this;
+
+//
 //  DEBUG  
 console.log( self.config );
+//
 //
 
 	try{
@@ -144,5 +193,9 @@ console.log( self.config );
 	}
 	return self.config;
 }
+
+
+
+
 
 module.exports = STATION;

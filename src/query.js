@@ -112,8 +112,14 @@ QUERY.prototype.query = function( config )
                       return;
                   }
 
-	    	var jsonMap = {};
-    	 	jsonData = JSON.parse(theData).data.result;
+	    	var jsonMap = {};  
+		try{
+    	 		jsonData = JSON.parse(theData).data.result;
+		} catch( err ) {
+			//console.error( err );
+			console.log( JSON.parse(theData).messages );
+			return;
+		}
 
 	    	if(!jsonData||jsonData.length == 0){
 	    		console.log('No free tickets');
@@ -146,6 +152,8 @@ console.log(  self._titleList.join('  ') );
                 var firstClass = datalist[30]; 
                 var secondClass = datalist[31]; 
        
+
+ 
 
 		if(-1 != trainNum.indexOf('G') )
 		{
