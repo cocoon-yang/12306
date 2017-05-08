@@ -1,5 +1,5 @@
-# 12306_left_ticket
-使用node.js查询12306余票
+# 12306余票查询
+使用[node.js](https://nodejs.org/)查询12306余票
 
 
 一个使用node.js查询12306余票的小程序
