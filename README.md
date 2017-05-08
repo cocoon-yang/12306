@@ -1,8 +1,6 @@
 # 12306余票查询
-使用[node.js](https://nodejs.org/)查询12306余票
 
-
-一个使用node.js查询12306余票的小程序
+一个在[node.js](https://nodejs.org/)环境中通过12306查询余票的小程序
 
 ## 使用说明 
 
