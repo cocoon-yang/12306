@@ -36,10 +36,9 @@
 <pre> 
 D:>node main.js
 > 
-> Query Log PASS
-undefined
-Got response: 200
-Query status:  true
+    北京 => 上海
+    2071-05-08
+>  
 车次  开车  到达  历时  商务  一等  二等  软卧  硬卧  软座  硬座  站票
 G101  06:44 12:38 05:54 有    有    有                      0
 G5    07:00 11:55 04:55 8     有    有                      0
@@ -68,10 +67,9 @@ D:\>node main.js
   end_station: 'AOH',
   train_num: 'D321',
   purpose_codes: 'ADULT' }
-> Query Log PASS
-undefined
-Got response: 200
-Query status:  true
+> 
+    北京 => 上海虹桥
+    2071-05-08
 车次  开车  到达  历时  商务  一等  二等  软卧  硬卧  软座  硬座  站票
 G101  06:44 12:38 05:54 有    有    有                      0
 G5    07:00 11:55 04:55 8     有    有                      0
@@ -85,10 +83,9 @@ G5    07:00 11:55 04:55 8     有    有                      0
 D:>node main.js
 > load
 请输入车票查询配置文件:./config.json
-> Query Log PASS
-undefined
-Got response: 200
-Query status:  true
+> 
+    北京 => 上海
+    2071-05-08
 车次  开车  到达  历时  商务  一等  二等  软卧  硬卧  软座  硬座  站票
 G101  06:44 12:38 05:54 有    有    有                      0
 G5    07:00 11:55 04:55 8     有    有                      0
