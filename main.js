@@ -13,7 +13,8 @@ const rl = readline.createInterface({
 //
 var stations  = new STATIONDATA() ;
 var theQuery = new Ticketsquery();
- 
+// init 
+stations.loadCofigFile( './config.json' ) 
 
 //
 // save configuration  
@@ -151,8 +152,6 @@ function query()
 rl.prompt();
 
 rl.on('line', function(line){ 
-
-  stations.loadCofigFile( './config.json' )
 
   switch((line.trim()).toLowerCase()) {
     case 'quit':
